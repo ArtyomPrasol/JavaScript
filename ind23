@@ -1,0 +1,103 @@
+public class Point {
+    int x;
+    int y;
+    Point(int x, int y){
+        this.x=x;
+        this.y=y;
+    }
+
+    int getX(){return x;}
+    int getY(){return y;}
+    void print(){System.out.println("x= "+x+" y= "+y);}
+
+    void chetvert(){
+        if(x>0&&y>0) System.out.println("First");
+        else if (x<0&&y>0) System.out.println("Second");
+        else if (x<0&&y<0) System.out.println("Third");
+        else if (x>0&&y>0) System.out.println("Fourth");
+    }
+
+    void move(int x1, int y1){
+        x +=x1;
+        y +=y1;
+    }
+
+    double distance(Point a){
+        return Math.sqrt(Math.pow((x-a.getX()),2)+Math.pow((y-a.getY()),2));
+    }
+
+    boolean sym(Point a){
+        if(x == -a.getX() && y ==-a.getY()) return true;
+        else return false;
+    }
+}
+
+public class Plane {
+    String mark;
+    int tank;
+    int maxDist;
+
+    Plane(String mark, int tank, int maxDist){
+        this.mark=mark;
+        this.maxDist=maxDist;
+        this.tank=tank;
+    }
+
+    String getMark(){return mark;}
+    int getTank(){return tank;}
+    int getMaxDist(){return maxDist;}
+
+    void print(){
+        System.out.println(mark +": "+tank+" "+maxDist);
+    }
+
+    void changeDist(int x){maxDist=x;}
+    void changeTank(int x){tank=x;}
+    void changeMark(String x){mark=x;}
+}
+
+public class PassengerPlane extends Plane{
+    int amountPass;
+
+    PassengerPlane(String mark, int maxDist, int tank, int amountPass)
+    {
+        super(mark, tank, maxDist);
+        this.amountPass=amountPass;
+    }
+
+    int getAmountPass(){return amountPass;}
+
+    void print(){
+        System.out.println(mark +": "+tank+" "+maxDist+" places: "+amountPass);
+    }
+}
+
+import java.util.*;
+public class Main {
+    public static void main(String []args){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Points: ");
+
+        int x =sc.nextInt();
+        int y = sc.nextInt();
+        Point a1 = new Point(x,y);
+        Point a2 = new Point(3, 4);
+        System.out.println(a1.distance(a2));
+        x=sc.nextInt();
+        y=sc.nextInt();
+        a1.move(x,y);
+        if(a1.sym(a2)) System.out.println("Sym");
+        else System.out.println("Not Sym");
+        a1.chetvert();
+
+        System.out.println("Plane: ");
+        int tank = sc.nextInt();
+        int dist = sc.nextInt();
+        String mark = sc.next();
+        int pass = sc.nextInt();
+        Plane pla = new PassengerPlane(mark, dist, tank, pass);
+        pla.print();
+        pla.changeDist(-20);
+        pla.print();
+    }
+}
